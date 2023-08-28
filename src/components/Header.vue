@@ -47,7 +47,9 @@ data(){
         aboutMe: false,
         contact: false,
         stack: false,
+        screenWidth: window.innerWidth
     };
+    
 },
 methods: {
     updateTimestamp() {
@@ -103,12 +105,7 @@ beforeUnmont() {
     color: rgb(203, 152, 252)
 }
 
-.Window a{
-    color: var(--accent-color);
-}
-.Window a:hover{
-    color: var(--primary-color)
-}
+
 
 .timestamp{
     position: absolute;
@@ -117,4 +114,11 @@ beforeUnmont() {
     margin: 0 .5rem;
     right: 0;
 }
+
+@media screen and (max-device-width: 512px)
+    and (orientation: portrait){
+        .timestamp{
+            display: none;
+        }
+    }
 </style>

@@ -1,5 +1,30 @@
 <template>
+    <div class="">
+        
+    </div>
     <div class="window-holder"
+    v-if="isMobile"
+    :style="{ left: '0px', top: '0px' }"
+    @mousedown="startDragging"
+    @mousemove="dragDiv"
+    @mouseup="stopDragging"
+    @mouseleave="stopDragging">
+    <div class="window">
+        <div class="window-header">
+            <span> {{ title }}</span>
+            <a class="close-button" @click="hideComponent">X</a>
+        </div>
+        <div class="content">
+            <p> {{ description }} </p>
+            
+            <i class="large material-icons">{{ iconClass }} </i>
+            
+            <a v-if="url" style="margin-top:1rem" :href=url target="_blank"> Link </a>
+        </div>
+    </div>
+    </div>
+    <div class="window-holder"
+        v-else
         :style="{ left: divX + 'px', top: divY + 'px' }"
         @mousedown="startDragging"
         @mousemove="dragDiv"
@@ -50,13 +75,19 @@ props: {
         this.isDragging = false;
         document.body.style.cursor = 'grab';
     },
-    },data() {
+    },data(){
     return {
         isDragging: false,
         offset: { x: 0, y: 0 },
         divX: 400,
         divY: 100,
+        screenWidth: window.innerWidth
     };
+    },
+    computed: {
+        isMobile() {
+          return this.screenWidth <= 1090; // Define a largura a partir da qual você considera como "mobile"
+        }
 }
 }
 </script>
@@ -106,7 +137,7 @@ i{
 }
 
 .close-button:hover{
-    color: var(--primary-color)
+    color: var(--accent-color)
 }
 
 .content{
@@ -132,10 +163,94 @@ img{
 }
 a{
     text-decoration: none;
+    color: var(--accent-color);
+
 }
 a:hover{
     cursor: pointer;
     font-size: 1.1rem;
     color: var(--primary-color)
 }
+
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 512px)
+    and (orientation: portrait){
+        i{  
+            margin: 1rem;
+            font-size: 5rem;
+        }
+        
+        .window-holder{
+            cursor: grab;
+            z-index: 1;
+            display: absolute;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--secondary-color);
+            padding: .5rem;
+            box-shadow: none;
+            user-select: none;
+        }
+        
+        .window{
+            height: 100%;
+            width: 100%;
+            border: .15rem solid var(--accent-color);
+            padding: .5rem;
+            color: var(--accent-color);
+        }
+        
+        .window-header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 1.5rem;
+        }
+        
+        .close-button{
+            width: 1.7rem;
+            height: 1.7rem;
+            border: .15rem solid var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .close-button:hover{
+            color: var(--primary-color)
+        }
+        
+        .content{
+            width: 100%;
+            height: 70%;
+            margin-top: 1rem;
+            color: var(--accent-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .img-holder{
+            margin: 1rem 0;
+            font-size: 5rem;
+            border: .15rem solid var(--accent-color);
+            width: 100%;
+            height: 70%;
+        }
+        
+        img{
+            height: 100%;
+            width: auto;
+        }
+        a{
+            text-decoration: none;
+            color: var(--accent-color);
+
+        }
+        a:hover{
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--primary-color)
+        }
+}
+
 </style>

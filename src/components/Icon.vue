@@ -79,4 +79,46 @@ span {
   background-color: #045074;
 }
 
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 512px)
+    and (orientation: portrait) {
+      .item-holder{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        width: 5rem;
+        height: 6rem;
+        margin: .2rem .5rem;
+      }
+      img{
+        width: 2rem;
+        height: 2rem;
+        margin: .3rem;
+      }
+      i{
+        font-size: 2.3rem;
+        color: var(--secondary-color);
+      }
+      span {
+        background-color: var(--accent-color);
+        color: var(--secondary-color);
+        font-size: .8rem;
+        padding: .2rem;
+        width: 100%;
+      }
+      
+      .item-holder:hover i{
+        transition: ease-in-out 0.3s;
+        cursor: pointer;
+        font-size: 3.8rem;
+      }
+      
+      .item-holder:hover span{
+        transition: ease-in-out 0.3s;
+        cursor: pointer;
+        background-color: #045074;
+      }
+}
+
 </style>
